@@ -38,8 +38,8 @@ config_path = default_path + "/config.txt"
 logs_path = today_path + "/logs"
 data_path = today_path + "/data"
 info_path = data_path + "/info_list/"
-user_list_path = data_path + "/user_list.cvs"
-user_info_path = data_path + "/user_info_list.cvs"
+user_list_path = data_path + "/user_list.csv"
+user_info_path = data_path + "/all_user_info_list.csv"
 
 list_url = "https://saas.qingcongai.com/qczn-cz/business/caseManage/adminList"
 
@@ -132,7 +132,7 @@ def get_page_user_list(page_no=1, page_size=100) -> list:
         records = result['records']
         vos = []
         for record in records:
-            vos.append({"debtorName": record["debtorName"], "contractId": record["contractId"],
+            vos.append({"debtorName": record["debtorName"], "contractId": '\t' + record["contractId"],
                         "contractIdMd5": record["contractIdMd5"], "collectionPeople": record['collectionPeople']})
         return vos
     except Exception as e1:
@@ -223,13 +223,13 @@ def get_user_info(this_row) -> list:
     # 字符串转json
     json_obj = json.loads(detail_user)
     vos = [{
-        '客户姓名': json_obj['客户姓名'],
-        '身份证号码': json_obj['身份证号码'],
-        '手机号码': json_obj['手机号码'],
-        '户籍地址': json_obj['户籍地址'],
-        '生日': json_obj['生日'],
-        '年龄': json_obj['年龄'],
-        '催收员': this_row[4]
+        '客户姓名': str(json_obj['客户姓名']).split(' ')[0],
+        '身份证号码': '\t' + str(json_obj['身份证号码']),
+        '手机号码': '\t' + str(json_obj['手机号码']),
+        '户籍地址': str(json_obj['户籍地址']),
+        '生日': '\t' + str(json_obj['生日']),
+        '年龄': str(json_obj['年龄']),
+        '催收员': str(this_row[4])
     }]
     return vos
 
@@ -271,13 +271,35 @@ def merge_all_cvs() -> None:
     # 遍历所有文件，并将它们添加到列表中
     for filename in all_files:
         print(f"filename==={filename}")
-        df1 = pd.read_csv(filename, index_col=None, header=0)  # 假设所有文件都有相同的列名和行头
+        df1 = pd.read_csv(filename,
+                          converters={'身份证号码': str, '手机号码': str, '户籍地址': str, '生日': str, '年龄': str,
+                                      '催收员': str})  # 都按字符串读入
         li_df.append(df1)
     # 将所有 DataFrame 合并到一个 DataFrame 中
     df_all = pd.concat(li_df, axis=0, ignore_index=True)
+    # df_all['身份证号码'] = df_all['身份证号码'].astype(str).apply(lambda x: '\t' + x)
+    # 去重
+    duplicates = df_all.drop_duplicates()
     # 将合并后的 DataFrame 写入新的 CSV 文件
-    df_all.to_csv(user_info_path, index=False, encoding='utf-8-sig')
+    duplicates.to_csv(user_info_path, index=False, encoding='utf-8-sig')
     write_logs("合并完成")
+
+
+def merge_all_cvs2():
+    all_data = []
+    for filename in os.listdir(info_path):
+        if filename.endswith(".csv"):  # 检查文件是否是CSV
+            # 构建文件的完整路径
+            file_path = os.path.join(info_path, filename)
+            # 读取CSV文件
+            df = pd.read_csv(file_path)
+            df['身份证号码'] = df['身份证号码'].astype(str).apply(lambda x: '\t' + x)
+            # 将DataFrame添加到列表中
+            all_data.append(df)
+        # 使用pd.concat()合并所有的DataFrame
+    merged_data = pd.concat(all_data, ignore_index=True)
+    # 保存合并后的数据到新的CSV文件
+    merged_data.to_csv(user_info_path, index=False)
 
 
 if __name__ == '__main__':

@@ -4,24 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18310242-c956-4acf-841b-19022697270a" name="Changes" comment="qinbin  complete">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/pythonProject.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.project.demo/config.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.project.demo/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.project.demo/merge.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.project.demo/merge_cvs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.project.demo/read_logs.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.project.demo/read_logs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/com.project.demo/run.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/redme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirement.txt" afterDir="false" />
+    <list default="true" id="18310242-c956-4acf-841b-19022697270a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.project.demo/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/com.project.demo/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.project.demo/read_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/com.project.demo/read_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/redme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/redme.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +51,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "settings.editor.selected.configurable": "通义灵码",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -77,7 +64,7 @@
       <recent name="E:\Project\pythonProject" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.read_logs">
+  <component name="RunManager" selected="Python.merge_cvs">
     <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="pythonProject" />
       <option name="ENV_FILES" value="" />
@@ -195,9 +182,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.merge_cvs" />
         <item itemvalue="Python.read_logs" />
         <item itemvalue="Python.main (1)" />
-        <item itemvalue="Python.merge_cvs" />
         <item itemvalue="Python.script" />
         <item itemvalue="Python.main" />
       </list>
@@ -222,8 +209,45 @@
       <workItem from="1718884718099" duration="10644000" />
       <workItem from="1718971601968" duration="60000" />
       <workItem from="1718971683880" duration="10477000" />
-      <workItem from="1719011939578" duration="10325000" />
+      <workItem from="1719011939578" duration="11083000" />
+      <workItem from="1719027400692" duration="1527000" />
+      <workItem from="1719035262469" duration="9000" />
+      <workItem from="1719382736151" duration="66000" />
+      <workItem from="1719546164877" duration="6883000" />
     </task>
+    <task id="LOCAL-00001" summary="gitignore">
+      <option name="closed" value="true" />
+      <created>1719026660998</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1719026660998</updated>
+    </task>
+    <task id="LOCAL-00002" summary="qinbin  complete">
+      <option name="closed" value="true" />
+      <created>1719026678745</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1719026678745</updated>
+    </task>
+    <task id="LOCAL-00003" summary="qinbin  complete1">
+      <option name="closed" value="true" />
+      <created>1719026713944</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1719026713944</updated>
+    </task>
+    <task id="LOCAL-00004" summary="qinbin  complete">
+      <option name="closed" value="true" />
+      <created>1719026725062</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1719026725062</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,16 +266,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="gitignore" />
+    <MESSAGE value="qinbin  complete1" />
+    <MESSAGE value="qinbin  complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="qinbin  complete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/com.project.demo/read_logs.py</url>
-          <line>29</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -262,10 +283,10 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/pythonProject$merge_cvs.coverage" NAME="merge_cvs Coverage Results" MODIFIED="1719016210753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
+    <SUITE FILE_PATH="coverage/pythonProject$merge_cvs.coverage" NAME="merge_cvs Coverage Results" MODIFIED="1719552068494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
     <SUITE FILE_PATH="coverage/pythonProject$script.coverage" NAME="script Coverage Results" MODIFIED="1718895204251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
-    <SUITE FILE_PATH="coverage/pythonProject$read_logs.coverage" NAME="read_logs Coverage Results" MODIFIED="1719026317002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
+    <SUITE FILE_PATH="coverage/pythonProject$read_logs.coverage" NAME="read_logs Coverage Results" MODIFIED="1719552043681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
     <SUITE FILE_PATH="coverage/pythonProject$get_data_script.coverage" NAME="get_data_script Coverage Results" MODIFIED="1718885827511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
-    <SUITE FILE_PATH="coverage/pythonProject$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1719022731276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
+    <SUITE FILE_PATH="coverage/pythonProject$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1719550758690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
   </component>
 </project>

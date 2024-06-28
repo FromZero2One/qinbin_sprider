@@ -1,7 +1,7 @@
 使用手册
 - 安装python版本 >=3.8
 - c盘下创建一个文件夹，名字叫“opt”
-- 将requirements.txt，main.py，config.txt,python.bat文件放到opt文件夹下
+- 将所有文件放到opt文件夹下
 - 登录系统将X-Access-Token 复制到config.txt文件的X-Access-Token=
     - batch_num 抓取数据的批次
     - batch_size 每批抓取数据的条数，默认100建议100或50条 *** 更改批次数量后需要删除opt/data/info_list/文件夹下的所有文件
