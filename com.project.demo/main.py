@@ -132,8 +132,10 @@ def get_page_user_list(page_no=1, page_size=100) -> list:
         records = result['records']
         vos = []
         for record in records:
-            vos.append({"debtorName": record["debtorName"], "contractId": '\t' + record["contractId"],
-                        "contractIdMd5": record["contractIdMd5"], "collectionPeople": record['collectionPeople']})
+            vos.append(
+                {"userId": record["userId"], "debtorName": record["debtorName"],
+                 "contractId": '\t' + record["contractId"],
+                 "contractIdMd5": record["contractIdMd5"], "collectionPeople": record['collectionPeople']})
         return vos
     except Exception as e1:
         write_logs('---error--' + str(e1))
@@ -155,18 +157,21 @@ def get_all_user_list() -> list:
             break
         vos.extend(vo)
         page_no += 1
-    # 根据debtorName去重，并且不关心顺序
-    debtor_name_list = set(obj['debtorName'] for obj in vos)
+    # 根据userId去重，并且不关心顺序
+    debtor_name_list = set(obj['userId'] for obj in vos)
     # 去重后的用户列表
-    unique_vos = [next(obj for obj in vos if obj['debtorName'] == debtorName) for debtorName in debtor_name_list]
+    unique_vos = [next(obj for obj in vos if obj['userId'] == debtorName) for
+                  debtorName in debtor_name_list]
     return unique_vos
 
 
 # user_list 写入文件
 def write_to_file(vos) -> None:
-    df0 = pd.DataFrame(vos, columns=['debtorName', 'contractId', 'contractIdMd5', 'collectionPeople'])
+    df0 = pd.DataFrame(vos, columns=['userId', 'debtorName', 'contractId', 'contractIdMd5', 'collectionPeople'])
+    # debtorName 排序
+    sorted_df = df0.sort_values('debtorName')
     # index=False 列前面不加序列号
-    df0.to_csv(user_list_path, index=False)
+    sorted_df.to_csv(user_list_path, index=False)
     write_logs(f'user_list 写入文件成功，共{len(vos)}条')
 
 
@@ -197,8 +202,10 @@ def write_logs(logs) -> None:
 
 
 def write_user_info_logs(list_info) -> None:
-    cvs = str(batch_num) + "-" + str(user_count) + "==" + list_info[0]['客户姓名'] + "," + list_info[0][
-        '身份证号码'] + "," + list_info[0][
+    cvs = str(batch_num) + "-" + str(user_count) + "==" + list_info[0]['userId'] + ',' + list_info[0][
+        '客户姓名'] + "," + \
+          list_info[0][
+              '身份证号码'] + "," + list_info[0][
               '手机号码'] + "," + list_info[0]['户籍地址'] + "," + list_info[0][
               '生日'] + "," + list_info[0]['年龄'] + "," + list_info[0]['催收员']
     # print(f'---error----{cvs}')
@@ -207,13 +214,13 @@ def write_user_info_logs(list_info) -> None:
 
 # 获取用户详情
 def get_user_info(this_row) -> list:
-    cur_contract_id = this_row[2]
-    md5 = this_row[3]
+    cur_contract_id = this_row[3]
+    md5 = this_row[4]
     headers['X-Access-Token'] = token
     url = "https://saas.qingcongai.com/qczn-cz/business/caseManage/getDetailInfo?contractId=" + str(
         cur_contract_id) + "&md5=" + str(md5)
-    randint = random.randint(1, 2)
-    time.sleep(1)
+    sleep_time = 0.6
+    time.sleep(sleep_time)
     res = requests.get(url, headers=headers)
     res_json = res.json()
     result = res_json['result']
@@ -223,20 +230,22 @@ def get_user_info(this_row) -> list:
     # 字符串转json
     json_obj = json.loads(detail_user)
     vos = [{
+        'userId': str(json_obj['用户ID']),
         '客户姓名': str(json_obj['客户姓名']).split(' ')[0],
         '身份证号码': '\t' + str(json_obj['身份证号码']),
         '手机号码': '\t' + str(json_obj['手机号码']),
         '户籍地址': str(json_obj['户籍地址']),
         '生日': '\t' + str(json_obj['生日']),
         '年龄': str(json_obj['年龄']),
-        '催收员': str(this_row[4])
+        '催收员': str(this_row[5])
     }]
     return vos
 
 
 # 批量写入用户详情到文件 每批100条
 def write_info_to_file(vos) -> None:
-    df3 = pd.DataFrame(vos, columns=['客户姓名', '身份证号码', '手机号码', '户籍地址', '生日', '年龄', '催收员'])
+    df3 = pd.DataFrame(vos,
+                       columns=['userId', '客户姓名', '身份证号码', '手机号码', '户籍地址', '生日', '年龄', '催收员'])
     # index=False 列前面不加序列号
     df3.to_csv(info_path + str(batch_num) + '_user_info.csv', index=False)
 

@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/com.project.demo/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/com.project.demo/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/com.project.demo/read_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/com.project.demo/read_logs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/redme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/redme.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,25 +35,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python.get_data_script.executor": "Debug",
-    "Python.main (1).executor": "Debug",
-    "Python.merge_cvs.executor": "Debug",
-    "Python.read_logs.executor": "Debug",
-    "Python.script.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "E:/Project/pythonProject",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "通义灵码",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.get_data_script.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.main (1).executor&quot;: &quot;Debug&quot;,
+    &quot;Python.merge_cvs.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.read_logs.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.script.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Project/pythonProject&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;cn.yiiguxing.plugin.translate&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Project\pythonProject" />
@@ -64,7 +63,7 @@
       <recent name="E:\Project\pythonProject" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.merge_cvs">
+  <component name="RunManager" selected="Python.read_logs">
     <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="pythonProject" />
       <option name="ENV_FILES" value="" />
@@ -182,8 +181,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.merge_cvs" />
         <item itemvalue="Python.read_logs" />
+        <item itemvalue="Python.merge_cvs" />
         <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.script" />
         <item itemvalue="Python.main" />
@@ -213,7 +212,11 @@
       <workItem from="1719027400692" duration="1527000" />
       <workItem from="1719035262469" duration="9000" />
       <workItem from="1719382736151" duration="66000" />
-      <workItem from="1719546164877" duration="6883000" />
+      <workItem from="1719546164877" duration="7355000" />
+      <workItem from="1719582546330" duration="771000" />
+      <workItem from="1719584128627" duration="259000" />
+      <workItem from="1719803503351" duration="460000" />
+      <workItem from="1719835830098" duration="10131000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
@@ -247,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719026725062</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="bugfix">
+      <option name="closed" value="true" />
+      <created>1719582090630</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719582090630</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,10 +280,23 @@
     <MESSAGE value="gitignore" />
     <MESSAGE value="qinbin  complete1" />
     <MESSAGE value="qinbin  complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="qinbin  complete" />
+    <MESSAGE value="bugfix" />
+    <option name="LAST_COMMIT_MESSAGE" value="bugfix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/com.project.demo/main.py</url>
+          <line>164</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/com.project.demo/main.py</url>
+          <line>347</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -283,10 +307,10 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/pythonProject$merge_cvs.coverage" NAME="merge_cvs Coverage Results" MODIFIED="1719552068494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
+    <SUITE FILE_PATH="coverage/pythonProject$merge_cvs.coverage" NAME="merge_cvs Coverage Results" MODIFIED="1719846104297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
     <SUITE FILE_PATH="coverage/pythonProject$script.coverage" NAME="script Coverage Results" MODIFIED="1718895204251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
-    <SUITE FILE_PATH="coverage/pythonProject$read_logs.coverage" NAME="read_logs Coverage Results" MODIFIED="1719552043681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
+    <SUITE FILE_PATH="coverage/pythonProject$read_logs.coverage" NAME="read_logs Coverage Results" MODIFIED="1719846336023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
     <SUITE FILE_PATH="coverage/pythonProject$get_data_script.coverage" NAME="get_data_script Coverage Results" MODIFIED="1718885827511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
-    <SUITE FILE_PATH="coverage/pythonProject$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1719550758690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
+    <SUITE FILE_PATH="coverage/pythonProject$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1719846048811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
   </component>
 </project>
