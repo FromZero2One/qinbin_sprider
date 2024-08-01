@@ -39,7 +39,8 @@ logs_path = today_path + "/logs"
 data_path = today_path + "/data"
 info_path = data_path + "/info_list/"
 user_list_path = data_path + "/user_list.csv"
-user_info_path = data_path + "/all_user_info_list.csv"
+user_info_path = data_path + "/all_user_info_list1.csv"
+merge_user_info_path = data_path + "/merge_all_user_info_list.csv"
 
 list_url = "https://saas.qingcongai.com/qczn-cz/business/caseManage/adminList"
 
@@ -135,7 +136,7 @@ def get_page_user_list(page_no=1, page_size=100) -> list:
             vos.append(
                 {"userId": record["userId"], "debtorName": record["debtorName"],
                  "contractId": '\t' + record["contractId"],
-                 "contractIdMd5": record["contractIdMd5"], "collectionPeople": record['collectionPeople']})
+                 "contractIdMd5": '\t' + record["contractIdMd5"], "collectionPeople": record['collectionPeople']})
         return vos
     except Exception as e1:
         write_logs('---error--' + str(e1))
@@ -218,8 +219,8 @@ def get_user_info(this_row) -> list:
     md5 = this_row[4]
     headers['X-Access-Token'] = token
     url = "https://saas.qingcongai.com/qczn-cz/business/caseManage/getDetailInfo?contractId=" + str(
-        cur_contract_id) + "&md5=" + str(md5)
-    sleep_time = 0.6
+        cur_contract_id).lstrip() + "&md5=" + str(md5).lstrip()
+    sleep_time = 0.3
     time.sleep(sleep_time)
     res = requests.get(url, headers=headers)
     res_json = res.json()
@@ -229,14 +230,37 @@ def get_user_info(this_row) -> list:
     detail_user = detail__['客户基本信息']
     # 字符串转json
     json_obj = json.loads(detail_user)
+    userId = this_row[1]
+    if '用户ID' in json_obj:
+        userId = json_obj['用户ID']
+    user_name = ""
+    if '客户姓名' in json_obj:
+        user_name =str(json_obj['客户姓名']).split(' ')[0]
+    id_card = ""
+    if '身份证号码' in json_obj:
+        id_card = json_obj['身份证号码']
+    elif '身份证号' in json_obj:
+        id_card = json_obj['身份证号']
+    phone = ""
+    if '手机号码' in json_obj:
+        phone = json_obj['手机号码']
+    address = ""
+    if '户籍地址' in json_obj:
+        address = json_obj['户籍地址']
+    birthday = ""
+    if '生日' in json_obj:
+        birthday = json_obj['生日']
+    age=""
+    if '年龄' in json_obj:
+        age = json_obj['年龄']
     vos = [{
-        'userId': str(json_obj['用户ID']),
-        '客户姓名': str(json_obj['客户姓名']).split(' ')[0],
-        '身份证号码': '\t' + str(json_obj['身份证号码']),
-        '手机号码': '\t' + str(json_obj['手机号码']),
-        '户籍地址': str(json_obj['户籍地址']),
-        '生日': '\t' + str(json_obj['生日']),
-        '年龄': str(json_obj['年龄']),
+        'userId': str(userId),
+        '客户姓名': user_name ,
+        '身份证号码': '\t' + str(id_card),
+        '手机号码': '\t' + str(phone),
+        '户籍地址': str(address),
+        '生日': '\t' + str(birthday),
+        '年龄': str(age),
         '催收员': str(this_row[5])
     }]
     return vos
@@ -303,12 +327,14 @@ def merge_all_cvs2():
             # 读取CSV文件
             df = pd.read_csv(file_path)
             df['身份证号码'] = df['身份证号码'].astype(str).apply(lambda x: '\t' + x)
+            df['手机号码'] = df['手机号码'].astype(str).apply(lambda x: '\t' + x)
             # 将DataFrame添加到列表中
             all_data.append(df)
         # 使用pd.concat()合并所有的DataFrame
     merged_data = pd.concat(all_data, ignore_index=True)
     # 保存合并后的数据到新的CSV文件
-    merged_data.to_csv(user_info_path, index=False)
+    merged_data.to_csv(merge_user_info_path, index=False)
+    write_logs("手动合并完成")
 
 
 if __name__ == '__main__':

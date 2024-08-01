@@ -7,7 +7,7 @@
     <list default="true" id="18310242-c956-4acf-841b-19022697270a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/com.project.demo/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/com.project.demo/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.project.demo/read_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/com.project.demo/read_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/com.project.demo/merge_cvs.py" beforeDir="false" afterPath="$PROJECT_DIR$/com.project.demo/merge_cvs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +63,7 @@
       <recent name="E:\Project\pythonProject" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.read_logs">
+  <component name="RunManager" selected="Python.merge_cvs">
     <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="pythonProject" />
       <option name="ENV_FILES" value="" />
@@ -181,8 +181,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.read_logs" />
         <item itemvalue="Python.merge_cvs" />
+        <item itemvalue="Python.read_logs" />
         <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.script" />
         <item itemvalue="Python.main" />
@@ -217,6 +217,11 @@
       <workItem from="1719584128627" duration="259000" />
       <workItem from="1719803503351" duration="460000" />
       <workItem from="1719835830098" duration="10131000" />
+      <workItem from="1720008314007" duration="393000" />
+      <workItem from="1720238759099" duration="797000" />
+      <workItem from="1720247235019" duration="1807000" />
+      <workItem from="1720249077972" duration="91000" />
+      <workItem from="1722512021274" duration="12983000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
@@ -258,7 +263,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719582090630</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="BUG fix  userId distinct">
+      <option name="closed" value="true" />
+      <created>1720008577463</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1720008577463</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,22 +294,11 @@
     <MESSAGE value="qinbin  complete1" />
     <MESSAGE value="qinbin  complete" />
     <MESSAGE value="bugfix" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfix" />
+    <MESSAGE value="BUG fix  userId distinct" />
+    <option name="LAST_COMMIT_MESSAGE" value="BUG fix  userId distinct" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/com.project.demo/main.py</url>
-          <line>164</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/com.project.demo/main.py</url>
-          <line>347</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -307,10 +309,10 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/pythonProject$merge_cvs.coverage" NAME="merge_cvs Coverage Results" MODIFIED="1719846104297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
+    <SUITE FILE_PATH="coverage/pythonProject$merge_cvs.coverage" NAME="merge_cvs Coverage Results" MODIFIED="1722555856067" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
     <SUITE FILE_PATH="coverage/pythonProject$script.coverage" NAME="script Coverage Results" MODIFIED="1718895204251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
-    <SUITE FILE_PATH="coverage/pythonProject$read_logs.coverage" NAME="read_logs Coverage Results" MODIFIED="1719846336023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
+    <SUITE FILE_PATH="coverage/pythonProject$read_logs.coverage" NAME="read_logs Coverage Results" MODIFIED="1722555525803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
     <SUITE FILE_PATH="coverage/pythonProject$get_data_script.coverage" NAME="get_data_script Coverage Results" MODIFIED="1718885827511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
-    <SUITE FILE_PATH="coverage/pythonProject$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1719846048811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
+    <SUITE FILE_PATH="coverage/pythonProject$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1722555347466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/com.project.demo" />
   </component>
 </project>
