@@ -1,5 +1,4 @@
 import os.path
-import random
 import sys
 import time
 import logging.config
@@ -39,7 +38,7 @@ logs_path = today_path + "/logs"
 data_path = today_path + "/data"
 info_path = data_path + "/info_list/"
 user_list_path = data_path + "/user_list.csv"
-user_info_path = data_path + "/all_user_info_list1.csv"
+user_info_path = data_path + "/all_user_info_list.csv"
 merge_user_info_path = data_path + "/merge_all_user_info_list.csv"
 
 list_url = "https://saas.qingcongai.com/qczn-cz/business/caseManage/adminList"
@@ -134,14 +133,11 @@ def get_page_user_list(page_no=1, page_size=100) -> list:
         vos = []
         for record in records:
             vos.append(
-                {"userId": record["userId"],  # UID
-                 "creditors_dictText": record['creditors_dictText'],  # 产品名称 'LFQ-2'
+                {"userId": record["userId"],
                  "debtorName": record["debtorName"],  # 姓名
-                 "contractId": '\t' + record["contractId"],  # 合同编号 '190321081327218869''
-                 "contractIdMd5": '\t' + record["contractIdMd5"],  # md5
-                 "assignmentTime": record['assignmentTime'],  # 委案时间
-                 "collectionPeople": record['collectionPeople']  # 催收人员 '王小虎'
-                 })
+                 "contractId": '\t' + record["contractId"],  # 合同号
+                 "contractIdMd5": '\t' + record["contractIdMd5"],
+                 "collectionPeople": record['collectionPeople']})  # 催收人
         return vos
     except Exception as e1:
         write_logs('---error--' + str(e1))
@@ -164,13 +160,12 @@ def get_all_user_list() -> list:
             break
         vos.extend(vo)
         page_no += 1
-        if test and page_no > 1:
-            return vos
-    # 根据userId去重，并且不关心顺序
-    userIdSet = set(obj['userId'] for obj in vos)
-    # 去重后的用户列表
-    unique_vos = [next(obj for obj in vos if obj['userId'] == userId) for userId in userIdSet]
-    return unique_vos
+    # # 根据userId去重，并且不关心顺序
+    # debtor_name_list = set(obj['userId'] for obj in vos)
+    # # 去重后的用户列表
+    # unique_vos = [next(obj for obj in vos if obj['userId'] == debtorName) for
+    #               debtorName in debtor_name_list]
+    return vos
 
 
 # user_list 写入文件
@@ -216,12 +211,15 @@ def write_logs(logs) -> None:
 
 
 def write_user_info_logs(list_info) -> None:
-    cvs = str(batch_num) + "-" + str(user_count) + "==" + list_info[0]['userId'] + ',' + list_info[0][
-        '客户姓名'] + "," + \
-          list_info[0][
-              '身份证号码'] + "," + list_info[0][
-              '手机号码'] + "," + list_info[0]['户籍地址'] + "," + list_info[0][
-              '生日'] + "," + list_info[0]['年龄'] + "," + list_info[0]['催收员']
+    cvs = (str(batch_num) + "-" + str(user_count) + "=="
+           + list_info[0]['userId'] + ','
+           + list_info[0]['客户姓名'] + ","
+           + list_info[0]['身份证号码'] + ","
+           + list_info[0]['手机号码'] + ","
+           + list_info[0]['户籍地址'] + ","
+           + list_info[0]['总欠款金额'] + ","
+           + list_info[0]['本金欠款'] + ","
+           + list_info[0]['催收员'])
     # print(f'---error----{cvs}')
     logger.error(cvs)
 
@@ -239,8 +237,17 @@ def get_user_info(this_row) -> list:
     res_json = res.json()
     result = res_json['result']
     case_detail_ = result['caseDetail']
-    detail__ = case_detail_[0]
-    detail_user = detail__['客户基本信息']
+    detail_0 = case_detail_[0]
+    detail_2 = case_detail_[2]
+    detail_cash = detail_2['逾期信息']
+    json_cash = json.loads(detail_cash)
+    total_cash = 0
+    if '总欠款金额' in json_cash:
+        total_cash = json_cash['总欠款金额']
+    this_cash = 0
+    if '本金欠款' in json_cash:
+        this_cash = json_cash['本金欠款']
+    detail_user = detail_0['客户基本信息']
     # 字符串转json
     json_obj = json.loads(detail_user)
     userId = this_row[1]
@@ -263,7 +270,7 @@ def get_user_info(this_row) -> list:
     birthday = ""
     if '生日' in json_obj:
         birthday = json_obj['生日']
-    age = ""
+    age=""
     if '年龄' in json_obj:
         age = json_obj['年龄']
     vos = [{
@@ -273,8 +280,8 @@ def get_user_info(this_row) -> list:
         '身份证号码': '\t' + str(id_card),
         '手机号码': '\t' + str(phone),
         '户籍地址': str(address),
-        '生日': '\t' + str(birthday),
-        '年龄': str(age),
+        '总欠款金额': str(total_cash),
+        '本金欠款': str(this_cash),
         '委案时间': str(this_row[6]),
         '催收员': str(this_row[7])
     }]
@@ -285,14 +292,12 @@ def get_user_info(this_row) -> list:
 def write_info_to_file(vos) -> None:
     df3 = pd.DataFrame(vos,
                        columns=['userId',
-                                '产品名称',
                                 '客户姓名',
                                 '身份证号码',
                                 '手机号码',
                                 '户籍地址',
-                                '生日',
-                                '年龄',
-                                '委案时间',
+                                '总欠款金额',
+                                '本金欠款',
                                 '催收员'])
     # index=False 列前面不加序列号
     df3.to_csv(info_path + str(batch_num) + '_user_info.csv', index=False)
@@ -329,16 +334,17 @@ def merge_all_cvs() -> None:
     for filename in all_files:
         print(f"filename==={filename}")
         df1 = pd.read_csv(filename,
-                          converters={'身份证号码': str, '手机号码': str, '户籍地址': str, '生日': str, '年龄': str,
+                          converters={'身份证号码': str,
+                                      '手机号码': str,
+                                      '户籍地址': str,
+                                      '总欠款金额': str,
+                                      '本金欠款': str,
                                       '催收员': str})  # 都按字符串读入
         li_df.append(df1)
     # 将所有 DataFrame 合并到一个 DataFrame 中
     df_all = pd.concat(li_df, axis=0, ignore_index=True)
-    # df_all['身份证号码'] = df_all['身份证号码'].astype(str).apply(lambda x: '\t' + x)
-    # 去重
-    duplicates = df_all.drop_duplicates()
-    # 将合并后的 DataFrame 写入新的 CSV 文件
-    duplicates.to_csv(user_info_path, index=False, encoding='utf-8-sig')
+    print(f'----count of  user info file==={len(df_all)}')
+    df_all.to_csv(user_info_path, index=False, encoding='utf-8-sig')
     write_logs("合并完成")
 
 
@@ -397,7 +403,7 @@ if __name__ == '__main__':
         # 写入文件
         write_to_file(user_list)
 
-    # 读取list 根据配置文件分批
+    # 读取用户列表user_list 将df读入的所有user_list中的数据按batch_size大小分批
     df = read_list_from_file()
     batch_list = []
     for batch in range(0, len(df), batch_size):
