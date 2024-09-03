@@ -146,7 +146,6 @@ def get_page_user_list(page_no=1, page_size=100) -> list:
 
 # 获取所有用户列表
 def get_all_user_list() -> list:
-    test = False
     page_no = 1
     page_size = 100
     total_page = int(total_count / page_size) + 1  # 最后一个非整100页
@@ -170,13 +169,7 @@ def get_all_user_list() -> list:
 
 # user_list 写入文件
 def write_to_file(vos) -> None:
-    df0 = pd.DataFrame(vos, columns=['userId',
-                                     'creditors_dictText',
-                                     'debtorName',
-                                     'contractId',
-                                     'contractIdMd5',
-                                     'assignmentTime',
-                                     'collectionPeople'])
+    df0 = pd.DataFrame(vos, columns=['userId', 'debtorName', 'contractId', 'contractIdMd5', 'collectionPeople'])
     # debtorName 排序
     sorted_df = df0.sort_values('debtorName')
     # index=False 列前面不加序列号
@@ -214,20 +207,28 @@ def write_user_info_logs(list_info) -> None:
     cvs = (str(batch_num) + "-" + str(user_count) + "=="
            + list_info[0]['userId'] + ','
            + list_info[0]['客户姓名'] + ","
+           + list_info[0]['性别'] + ","
+           + list_info[0]['年龄'] + ","
            + list_info[0]['身份证号码'] + ","
            + list_info[0]['手机号码'] + ","
            + list_info[0]['户籍地址'] + ","
            + list_info[0]['总欠款金额'] + ","
            + list_info[0]['本金欠款'] + ","
-           + list_info[0]['催收员'])
+           + list_info[0]['利息欠款'] + ","
+           + list_info[0]['逾期利息(不含罚息)'] + ","
+           + list_info[0]['当前逾期天数'] + ","
+           + list_info[0]['产品名称'] + ","
+           + list_info[0]['催收员'] + ","
+           + list_info[0]['合同号']
+           )
     # print(f'---error----{cvs}')
     logger.error(cvs)
 
 
 # 获取用户详情
 def get_user_info(this_row) -> list:
-    cur_contract_id = this_row[4]
-    md5 = this_row[5]
+    cur_contract_id = this_row[3]
+    md5 = this_row[4]
     headers['X-Access-Token'] = token
     url = "https://saas.qingcongai.com/qczn-cz/business/caseManage/getDetailInfo?contractId=" + str(
         cur_contract_id).lstrip() + "&md5=" + str(md5).lstrip()
@@ -237,8 +238,10 @@ def get_user_info(this_row) -> list:
     res_json = res.json()
     result = res_json['result']
     case_detail_ = result['caseDetail']
-    detail_0 = case_detail_[0]
-    detail_2 = case_detail_[2]
+    detail_0 = case_detail_[0]  # 客户基本信息
+    detail_1 = case_detail_[1]  # 案件信息
+    detail_2 = case_detail_[2]  # 逾期信息
+    detail_3 = case_detail_[3]  # 还款账户信息
     detail_cash = detail_2['逾期信息']
     json_cash = json.loads(detail_cash)
     total_cash = 0
@@ -247,6 +250,16 @@ def get_user_info(this_row) -> list:
     this_cash = 0
     if '本金欠款' in json_cash:
         this_cash = json_cash['本金欠款']
+    yuqi_cash = 0
+    if '逾期利息(不含罚息)' in json_cash:
+        yuqi_cash = json_cash['逾期利息(不含罚息)']
+    yuqi_day = 0
+    if '当前逾期天数' in json_cash:
+        yuqi_day = json_cash['当前逾期天数']
+    qiankuan_cash = 0
+    if '利息欠款' in json_cash:
+        qiankuan_cash = json_cash['利息欠款']
+
     detail_user = detail_0['客户基本信息']
     # 字符串转json
     json_obj = json.loads(detail_user)
@@ -267,23 +280,36 @@ def get_user_info(this_row) -> list:
     address = ""
     if '户籍地址' in json_obj:
         address = json_obj['户籍地址']
-    birthday = ""
-    if '生日' in json_obj:
-        birthday = json_obj['生日']
-    age=""
+    sex = ""
+    if '性别' in json_obj:
+        sex = json_obj['性别']
+    age = ""
     if '年龄' in json_obj:
         age = json_obj['年龄']
+    contract_num = cur_contract_id
+    if '合同号' in json_obj:
+        contract_num = json_obj['合同号']
+    case_detail = detail_1['案件信息']
+    json_case = json.loads(case_detail)
+    prod_name = ""
+    if '产品名称' in json_case:
+        prod_name = json_case['产品名称']
     vos = [{
         'userId': str(userId),
-        '产品名称': str(this_row[2]),
         '客户姓名': user_name,
+        "性别": sex,
+        "年龄": age,
         '身份证号码': '\t' + str(id_card),
         '手机号码': '\t' + str(phone),
         '户籍地址': str(address),
         '总欠款金额': str(total_cash),
         '本金欠款': str(this_cash),
-        '委案时间': str(this_row[6]),
-        '催收员': str(this_row[7])
+        "利息欠款": str(qiankuan_cash),
+        "逾期利息(不含罚息)": str(yuqi_cash),
+        "当前逾期天数": str(yuqi_day),
+        '催收员': str(this_row[5]),
+        "产品名称": str(prod_name),
+        "合同号": '\t' + str(contract_num)
     }]
     return vos
 
@@ -291,14 +317,22 @@ def get_user_info(this_row) -> list:
 # 批量写入用户详情到文件 每批100条
 def write_info_to_file(vos) -> None:
     df3 = pd.DataFrame(vos,
-                       columns=['userId',
-                                '客户姓名',
-                                '身份证号码',
-                                '手机号码',
-                                '户籍地址',
-                                '总欠款金额',
-                                '本金欠款',
-                                '催收员'])
+                       columns=[
+                           'userId',
+                           '客户姓名',
+                           "性别",
+                           "年龄",
+                           '身份证号码',
+                           '手机号码',
+                           '户籍地址',
+                           '总欠款金额',
+                           '本金欠款',
+                           "利息欠款",
+                           "逾期利息(不含罚息)",
+                           "当前逾期天数",
+                           '催收员',
+                           "产品名称",
+                           "合同号"])
     # index=False 列前面不加序列号
     df3.to_csv(info_path + str(batch_num) + '_user_info.csv', index=False)
 
@@ -389,6 +423,9 @@ if __name__ == '__main__':
     #  总条数
     total_count = get_page_total_count()
     write_logs(f'total_count===={total_count}')
+    write_logs(f'use time ===={total_count/(3*60)} min')
+    total_page = int(total_count / batch_size) + 1
+    write_logs(f'total_page==={total_page}')
     if total_count == 0:
         write_logs('"exit---->  total_count =0 =0')
         sys.exit("exit----> total_count =0 ")
@@ -413,7 +450,6 @@ if __name__ == '__main__':
     # 已经保存文件数
     info_count = read_cvs_info_count()
     batch_num = info_count
-    print(f"---batch_list={len(batch_list)}---")
     # 按批次获取用户详情
     count = 0
     for batch in batch_list:
@@ -429,7 +465,7 @@ if __name__ == '__main__':
             try:
                 info = get_user_info(row)
                 user_count += 1
-                write_logs(f'获取第{batch_num}批---第{user_count}个用户详情成功')
+                write_logs(f'获取第{batch_num}批---第{user_count}个用户合同号[ {info[0]["合同号"]} ] 详情成功')
                 write_user_info_logs(info)
                 batch_user_infos.extend(info)
             except Exception as e:
